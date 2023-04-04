@@ -6,26 +6,27 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 // Import User-Defined Modules
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { mainDataSourceOptions } from './datasource.database';
+import { getEnvironmentFilePath } from './common/helper/env.helper';
+
+/**
+ * Environmemt File path based on our server environment.
+ */
+const envFilePath: string = getEnvironmentFilePath(`${__dirname}/common/envs`);
 
 /**
  * This module is the root module which acts as starting point to build the whole
  * application graph.
+ * Note: We have added config module globally so we donot have to import it
+ * everytime we need to access the config service.
  */
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath,
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      synchronize: false,
-      logging: false,
-    }),
+    TypeOrmModule.forRoot(mainDataSourceOptions),
   ],
   controllers: [AppController],
   providers: [AppService],
