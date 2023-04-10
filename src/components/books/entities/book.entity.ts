@@ -22,8 +22,8 @@ export class Books {
   author: string;
 
   @Column({ default: null, type: 'timestamp' })
-  created_at: string;
+  created_at?: Date;
 
   @Column({ default: null, type: 'timestamp' })
-  updated_at: string;
+  updated_at?: Date;
 }

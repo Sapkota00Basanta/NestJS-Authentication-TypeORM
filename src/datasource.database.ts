@@ -1,16 +1,19 @@
 // Import Third-Party Modules
-import { DataSource, DataSourceOptions } from 'typeorm';
+import * as typeorm from 'typeorm';
+
+// Import User-Defined Modules
+import { configurationValues } from './config';
 
 /**
  * This is datasource options which is used by TypeORM to connect with database.
  */
-export const mainDataSourceOptions: DataSourceOptions = {
-  type: 'mysql',
-  host: process.env.DATABASE_HOST ?? 'localhost',
-  port: Number(process.env.DATABASE_PORT) ?? 3306,
-  username: process.env.DATABASE_USER ?? 'root',
-  password: process.env.DATABASE_PASSWORD ?? 'rootpass',
-  database: process.env.DATABASE_NAME ?? 'nest_auth',
+export const mainDataSourceOptions: typeorm.DataSourceOptions = {
+  type: 'postgres',
+  host: configurationValues.database.host,
+  port: Number(configurationValues.database.port),
+  username: configurationValues.database.username,
+  password: String(configurationValues.database.password),
+  database: configurationValues.database.database,
   //   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: true,
   entities: ['dist/**/entities/*.entity.{ts,js}'],
@@ -18,5 +21,5 @@ export const mainDataSourceOptions: DataSourceOptions = {
   subscribers: ['src/subscriber/**/*.{js,ts}'],
 };
 
-const dataSource = new DataSource(mainDataSourceOptions);
+const dataSource = new typeorm.DataSource(mainDataSourceOptions);
 export default dataSource;

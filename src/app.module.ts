@@ -8,11 +8,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { mainDataSourceOptions } from './datasource.database';
 import { getEnvironmentFilePath } from './common/helper/env.helper';
+import { BooksModule } from './components/books/books.module';
 
 /**
  * Environmemt File path based on our server environment.
  */
-const envFilePath: string = getEnvironmentFilePath(`${__dirname}/common/envs`);
+const envFilePath: string = getEnvironmentFilePath(`${__dirname}/common/env`);
 
 /**
  * This module is the root module which acts as starting point to build the whole
@@ -27,6 +28,7 @@ const envFilePath: string = getEnvironmentFilePath(`${__dirname}/common/envs`);
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(mainDataSourceOptions),
+    BooksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
