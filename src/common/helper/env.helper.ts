@@ -12,7 +12,7 @@ export const getEnvironmentFilePath = (destination: string): string => {
 
   // Using resolve method to return the absolute path
   const environmentFileFallbackAbsolutePath: string = resolve(
-    `${destination}/.env`,
+    `${destination}/example.env`,
   );
 
   // Setting the environment fileName based on our server environment variable value
@@ -24,11 +24,9 @@ export const getEnvironmentFilePath = (destination: string): string => {
   const environmentFilePath: string = resolve(
     `${destination}/${environmentFileName}`,
   );
-
   // Check if the enviornment file path exists & if not return the fall file path
-  if (!existsSync(environmentFilePath)) {
-    return environmentFileFallbackAbsolutePath;
+  if (existsSync(environmentFilePath)) {
+    return environmentFilePath;
   }
-
-  return environmentFilePath;
+  return environmentFileFallbackAbsolutePath;
 };
