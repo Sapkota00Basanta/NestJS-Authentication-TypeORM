@@ -1,5 +1,8 @@
 // Import Third-Party Modules
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+
+// Import User-Defined Modules
+import { Users } from 'src/components/users/entities/user.entity';
 
 /**
  * This module is an entity specific to Book Module to represent it's own repository.
@@ -8,6 +11,9 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 export class Books {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToOne(() => Users, (user) => user.books)
+  user: Users;
 
   @Column()
   title: string;

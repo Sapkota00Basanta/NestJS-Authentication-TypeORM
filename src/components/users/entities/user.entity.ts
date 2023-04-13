@@ -27,6 +27,6 @@ export class Users {
   @Column({ default: null, type: 'datetime' })
   updated_at?: Date;
 
-  @OneToMany(() => Books, (book) => book.user)
+  @OneToMany(() => Books, (book) => book.user) // Here, () => Books returns the type of class with which we want our relationship
   books?: Books[];
 }
