@@ -9,6 +9,12 @@ import { AppService } from './app.service';
 import { mainDataSourceOptions } from './datasource.database';
 import { getEnvironmentFilePath } from './common/helper/env.helper';
 import { BooksModule } from './components/books/books.module';
+import { AuthModule } from './src/components/auth/auth.module';
+import { UsersModule } from './src/components/users/users.module';
+import { AuthService } from './components/auth/auth.service';
+import { UsersModule } from './components/users/users.module';
+import { AuthModule } from './components/auth/auth.module';
+import { AuthService } from './components/auth/auth.service';
 
 /**
  * Environmemt File path based on our server environment.
@@ -29,8 +35,10 @@ const envFilePath: string = getEnvironmentFilePath(`${__dirname}/common/env`);
     }),
     TypeOrmModule.forRoot(mainDataSourceOptions),
     BooksModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}
