@@ -25,6 +25,7 @@ export class AddUserIdColumToBookMigration1681312344642
       new TableColumn({
         name: 'userId',
         type: 'int',
+        isNullable: true,
       }),
     );
 
