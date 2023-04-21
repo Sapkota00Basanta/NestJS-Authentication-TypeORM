@@ -1,20 +1,22 @@
 // Import Third-Party Modules
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
+// Import User-Defined Modules
+
 /**
- * This module is a migration which acts as a contract to interact and update
- * database schema for Book Module.
+ * This module is a migration which acts as a contract to interact and updated
+ * database schmea for User Module.
  */
-export class BookMigration1680625005923 implements MigrationInterface {
+export class UserMigration1681311413983 implements MigrationInterface {
   /**
-   * This is migration method which is used to define the changes for database schema
+   * This is migration method which is used to define the changes for database schmea
    * to apply the migration.
-   * @param queryRunner This is used to run SQL queries to database
+   * @param queryRunner This is used to run SQL queries to database.
    */
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'books',
+        name: 'users',
         columns: [
           {
             name: 'id',
@@ -24,19 +26,15 @@ export class BookMigration1680625005923 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'title',
+            name: 'name',
             type: 'varchar',
           },
           {
-            name: 'description',
+            name: 'email',
             type: 'varchar',
           },
           {
-            name: 'thumbnail',
-            type: 'varchar',
-          },
-          {
-            name: 'author',
+            name: 'password',
             type: 'varchar',
           },
           {
@@ -61,6 +59,6 @@ export class BookMigration1680625005923 implements MigrationInterface {
    * @param queryRunner This is used to run SQL queries to database.
    */
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('books');
+    await queryRunner.dropTable('users');
   }
 }

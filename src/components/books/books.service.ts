@@ -14,7 +14,7 @@ import { Books } from './entities/book.entity';
 export class BooksService {
   constructor(
     @InjectRepository(Books)
-    public bookRepository: Repository<Books>,
+    private readonly bookRepository: Repository<Books>,
   ) {}
 
   create = async (data: object) => {
