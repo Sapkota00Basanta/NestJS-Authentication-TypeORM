@@ -1,6 +1,7 @@
 // Import Third-Party Modules
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 // Import User-Defined Modules
 import { AppModule } from './app.module';
@@ -11,6 +12,20 @@ import { AppModule } from './app.module';
  */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  /**
+   * Here, we are validating our request body payload data
+   * to check if there are any data outside the specified data
+   * transfer object.
+   * Setting, whitelist to true -> only allow properties specified in DTO.
+   * transform to true -> converts js object data to defined types.
+   */
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
 
   /**
    * Defining a configuration for swagger documentation.
