@@ -5,6 +5,7 @@
 ## Table of contents
 
 - [Setup](#setup)
+- [Running the app](#running-the-app)
 - [Technologies](#technologies)
 - [Components](#components)
 - [Resources](#resources)
@@ -13,9 +14,26 @@
 
 To run this project, install it locally using yarn:
 
+```bash
+$ yarn install or yarn
 ```
+
+## Running the app
+
+```bash
+# development
+$ yarn run start
+```
+
 $ yarn
 $ Yarn start:dev
+
+```
+# watch mode
+$ yarn run start:dev
+
+# production mode
+$ yarn run start:prod
 ```
 
 ## Technologies

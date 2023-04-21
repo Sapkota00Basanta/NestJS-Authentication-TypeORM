@@ -8,7 +8,7 @@ import { configurationValues } from './config';
  * This is datasource options which is used by TypeORM to connect with database.
  */
 export const mainDataSourceOptions: typeorm.DataSourceOptions = {
-  type: 'postgres',
+  type: 'mysql',
   host: configurationValues.database.host,
   port: Number(configurationValues.database.port),
   username: configurationValues.database.username,
