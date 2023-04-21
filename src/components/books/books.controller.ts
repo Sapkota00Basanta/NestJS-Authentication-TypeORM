@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import {
@@ -24,6 +25,7 @@ import {
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 
 /**
  * This module is a controller which is used for handling incoming request and response
@@ -34,6 +36,7 @@ import { UpdateBookDto } from './dto/update-book.dto';
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiCreatedResponse({ description: 'Sucessfully Created Book Resource.' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request.' })
@@ -71,6 +74,7 @@ export class BooksController {
       .json({ error: 'This resource no longer exists or has been removed' });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @ApiOkResponse({ description: 'Sucessfully Updated Resource.' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request.' })
@@ -92,6 +96,7 @@ export class BooksController {
       .json({ error: 'The resource no longer exists or has been removed' });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiOkResponse({ description: 'Sucessfully Deleted Resource.' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request.' })
