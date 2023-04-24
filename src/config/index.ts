@@ -18,4 +18,5 @@ export const configurationValues = {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
   },
+  jwtSecret: process.env.JWT_SECRET,
 };

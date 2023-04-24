@@ -23,7 +23,7 @@ export class AuthInterceptor implements NestInterceptor {
     const request = context.switchToHttp().getRequest();
     const tokenArray = request.headers.authorization;
     if (tokenArray) {
-      request.body['user'] = this.authService.decode(
+      request.body['user'] = this.authService.decodeToken(
         tokenArray.split(' ')[1],
       ).user;
     }

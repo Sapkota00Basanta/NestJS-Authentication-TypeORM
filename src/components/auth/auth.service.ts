@@ -31,11 +31,11 @@ export class AuthService {
   async login(userData: any) {
     const payload = {
       user: {
-        id: userData?.user?.id,
-        email: userData?.user?.email,
-        name: userData?.user?.name,
-        created_at: userData?.user?.created_at,
-        updated_at: userData?.user?.updated_at,
+        id: userData.user.id,
+        email: userData.user.email,
+        name: userData.user.name,
+        created_at: userData.user.created_at,
+        updated_at: userData.user.updated_at,
       },
     };
 
@@ -53,7 +53,7 @@ export class AuthService {
     }
   }
 
-  decode(token): any {
+  decodeToken(token): any {
     return this.jwtService.decode(token);
   }
 }

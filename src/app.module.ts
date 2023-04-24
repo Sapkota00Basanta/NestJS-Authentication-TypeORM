@@ -5,8 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 
 // Import User-Defined Modules
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { mainDataSourceOptions } from './datasource.database';
 import { getEnvironmentFilePath } from './common/helper/env.helper';
 import { BooksModule } from './components/books/books.module';
@@ -14,6 +12,7 @@ import { UsersModule } from './components/users/users.module';
 import { AuthModule } from './components/auth/auth.module';
 import { AuthService } from './components/auth/auth.service';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { JwtService } from '@nestjs/jwt';
 
 /**
  * Environmemt File path based on our server environment.
@@ -37,14 +36,13 @@ const envFilePath: string = getEnvironmentFilePath(`${__dirname}/common/env`);
     AuthModule,
     UsersModule,
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: AuthInterceptor,
     },
     AuthService,
+    JwtService,
   ],
 })
 export class AppModule {}

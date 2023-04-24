@@ -2,5 +2,5 @@
 import { configurationValues } from 'src/config';
 
 export const jwtConstants = {
-  secret: `${configurationValues}`,
+  secret: `${configurationValues.jwtSecret}`,
 };
