@@ -60,6 +60,51 @@ async function bootstrap() {
    * c) Complete Swagger Documentation
    */
   SwaggerModule.setup('swaggerApi', app, swaggerActualDocument);
+  const exampleTimeStampValue = new Date();
+  console.log('Example TimeStamp Value', exampleTimeStampValue);
+  const exampleTimeStampValueConvertedToDateString =
+    exampleTimeStampValue.toDateString();
+  console.log(
+    'Example timestamp value after converted to DateString',
+    exampleTimeStampValueConvertedToDateString,
+  );
+  const exampleTimeStampValueConvertedToISOString =
+    exampleTimeStampValue.toISOString();
+  console.log(
+    'Example timestamp value after converting to ISO string',
+    exampleTimeStampValueConvertedToISOString,
+  );
+  const arrayValueOfSplittedTimeValue =
+    exampleTimeStampValueConvertedToDateString.split(' ');
+  console.log(
+    'Array value of date string converted timestamp value',
+    arrayValueOfSplittedTimeValue,
+  );
+  const day = arrayValueOfSplittedTimeValue[0].toLowerCase();
+  const month = arrayValueOfSplittedTimeValue[1];
+  const dateDay = arrayValueOfSplittedTimeValue[2];
+  const year = arrayValueOfSplittedTimeValue[3];
+  const returnFullDayString = (partialDayString: string) => {
+    switch (partialDayString) {
+      case 'sun':
+        return 'Sunday';
+      case 'mon':
+        return 'Monday';
+      case 'tue':
+        return 'Tuesday';
+      case 'wed':
+        return 'Wednesday';
+      case 'thu':
+        return 'Thursday';
+      case 'fri':
+        return 'Friday';
+      default:
+        return 'Saturday';
+    }
+  };
+  console.log('Day Full String format', returnFullDayString(day));
+  const currentDate = `${year}-${month}-${dateDay}`;
+  console.log('Date value', currentDate);
   await app.listen(3000);
 }
 bootstrap();

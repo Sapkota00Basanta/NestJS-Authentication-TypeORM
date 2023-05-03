@@ -7,22 +7,31 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '../auth.service';
 
 /**
- * This module is used as validation strategy helper provider for auth module.
+ * This module is responsible for checking if current user
+ * is properly validated.
  */
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
-    super({
-      userNameField: 'email',
-      passNameField: 'password',
-    });
+    // super({
+    //   userNameField: 'email',
+    //   passNameField: 'password',
+    // });
+    super();
   }
 
+  /**
+   * This method of local strategy is responsible for validating user
+   * & if it the user is valid it adds user property in request object.
+   * @param userName User name of user
+   * @param password Password of user
+   * @returns Unauthorized Exception or Current User
+   */
   async validate(userName: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(userName, password);
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Inavlid credentials');
     }
     return user;
   }

@@ -17,25 +17,35 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.userServive.findOne({ email: email });
-    console.log('Decrypted Valye from bcrypt', await bcrypt.hash(pass, 10));
+  /**
+   * This method is responsible for retreiving user and validating password.
+   * @param email User Email value
+   * @param pass User Password value
+   * @returns
+   */
+  async validateUser(userName: string, pass: string): Promise<any> {
+    const user = await this.userServive.findOne({ where: { name: userName } });
     if (user && bcrypt.compare(user.password, await bcrypt.hash(pass, 10))) {
       const { password, ...result } = user;
-      console.log(`Password value from auth service : ${password}`);
       return result;
     }
     return null;
   }
 
+  /**
+   * This method is responsible for generating valid JWT token
+   * for validated user.
+   * @param userData Validated User details
+   * @returns
+   */
   async login(userData: any) {
     const payload = {
       user: {
-        id: userData.user.id,
-        email: userData.user.email,
-        name: userData.user.name,
-        created_at: userData.user.created_at,
-        updated_at: userData.user.updated_at,
+        id: userData.id,
+        email: userData.email,
+        name: userData.name,
+        created_at: userData.created_at,
+        updated_at: userData.updated_at,
       },
     };
 

@@ -1,6 +1,13 @@
 //Import Third-Party Modules
-import { Controller, Get, UseGuards, Request, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Request,
+  Post,
+  Body,
+} from '@nestjs/common';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import {
   ApiOkResponse,
   ApiForbiddenResponse,
@@ -12,6 +19,7 @@ import {
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
+import { CreateUserDto } from '../users/dto/create-users.dto';
 
 /**
  * This moduele is a controller for Auth Module.
@@ -31,17 +39,19 @@ export class AuthController {
   })
   @Post('login')
   async login(@Request() request) {
-    return this.authService.login(request);
+    return this.authService.login(request.user);
   }
 
   @Post('register')
   @ApiCreatedResponse({ description: 'User registered sucessfully.' })
+  @ApiBody({ type: CreateUserDto })
   @ApiForbiddenResponse({ description: 'Unauthorized Request.' })
   @ApiNotFoundResponse({
     description: 'The resource is currently not available.',
   })
-  register(@Request() request) {
-    return this.authService.register(request);
+  // register (@Request() request) {
+  register(@Body() body: CreateUserDto) {
+    return this.authService.register(body);
   }
 
   @UseGuards(JwtAuthGuard)

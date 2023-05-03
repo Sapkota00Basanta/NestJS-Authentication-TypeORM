@@ -20,6 +20,7 @@ import { jwtConstants } from './constants';
     UsersModule,
     PassportModule,
     JwtModule.register({
+      global: true,
       secret: jwtConstants.secret,
       signOptions: {
         expiresIn: '24h',

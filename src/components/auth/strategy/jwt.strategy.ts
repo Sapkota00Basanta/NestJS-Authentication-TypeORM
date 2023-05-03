@@ -7,7 +7,13 @@ import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../constants';
 
 /**
- *Jwt Strategy service which acts as provider.
+ * Jwt Strategy service which is responsible for protecting
+ * routes against unauthorized user.
+ * Here,
+ * a) jwtFromRequest -> Extract JWT from request & supply the bearer token in
+ * authorization header.
+ * b) ignoreExpiration -> It is used to protect access against expired JWT.
+ * c) secretOrKey -> Supply the secret key or string.
  */
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

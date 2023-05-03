@@ -3,8 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 /**
- * This module is used as guard to check for the authservice
- * module of auth module.
+ * Here, AuthGuard is automatically provided by passport module.
+ * This module is responsible for restricting access to routes for
+ * any unvalidated user.
  */
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {}
